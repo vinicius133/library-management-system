@@ -1,6 +1,6 @@
 # 📚 Library Management System
 
-![C](https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1280px-C_Programming_Language.svg.png)
+<img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1280px-C_Programming_Language.svg.png" width="40" alt="C Logo" align="center">
 ![Build](https://img.shields.io/badge/build-Makefile-brightgreen.svg)
 
 > **Final Project - Computer Programming I**
