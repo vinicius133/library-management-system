@@ -1,4 +1,5 @@
-#ifndef LIVRO_H
+#ifndef LIVRO_H	
+
 #define LIVRO_H
 
 //struct base para as infos dos livros
@@ -11,7 +12,9 @@ typedef struct {
 	int ano ;
 	char categoria[50];
 
-} livro ;
+} livro;
+
+livro criar_livros(int id, const char *titulo, const char * autor, int ano, const char *categoria );
 
 
 #endif
