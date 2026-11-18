@@ -1,0 +1,51 @@
+Aqui está um guia direto e simplificado, formatado exatamente para você copiar e mandar para o seu colega. Ele cobre o fluxo de branches usando apenas a **interface visual do VS Code** (sem precisar digitar comandos no terminal).
+
+---
+
+### 📌 Guia de Trabalho no Git pelo VS Code
+
+Para evitar conflitos de código e não quebrar a branch principal (`main`), vamos usar a interface do VS Code para trabalhar em **branches de rascunho**.
+
+---
+
+#### 1. Antes de começar a programar (Início do dia)
+
+1. No canto inferior esquerdo do VS Code, clique onde está escrito **`main`**.
+2. Digite ou selecione `main` para garantir que está nela.
+3. Clique no botão de **Sincronizar** (ícone de duas setinhas em círculo 🔄 no canto inferior esquerdo) para puxar as últimas atualizações do repositório.
+4. Clique novamente no nome **`main`** no canto inferior esquerdo e selecione **"Create new branch..."** (ou "Criar nova branch...").
+5. Digite o nome da sua tarefa (ex: `cadastro-livros` ou `tela-login`) e pressione `Enter`.
+
+> 💡 *Pronto! Agora você está na sua branch de rascunho. Pode mexer e alterar os arquivos sem medo.*
+
+---
+
+#### 2. Enquanto estiver programando e ao finalizar
+
+1. Altere e salve seus arquivos `.c` e `.h` normalmente.
+2. Abra a aba **Controle de Origem** (ícone do Git 🔀 na barra lateral esquerda do VS Code, ou `Ctrl + Shift + G`).
+3. No campo de texto no topo da barra ("Mensagem"), digite o que você fez (ex: `Cria estrutura de livros`).
+4. Clique no botão azul **Commit**.
+5. Em seguida, clique no botão azul **Publicar Branch** (ou "Publish Branch").
+
+---
+
+#### 3. Para juntar seu trabalho no repositório no GitHub
+
+1. Abra a página do repositório no site do **GitHub**.
+2. Você verá um aviso amarelo no topo mostrando a sua branch com o botão **"Compare & pull request"**. Clique nele.
+3. Clique em **"Create pull request"**.
+4. O outro colega pode revisar e clicar em **"Merge pull request"** para unir as alterações na `main`.
+
+---
+
+#### ⚠️ Regra de Ouro para Projetos em C
+
+Nunca envie arquivos executáveis (`.exe`, `.o`, `.out`). Crie um arquivo com o nome exato `.gitignore` na raiz do projeto e escreva isso dentro dele:
+
+```text
+*.exe
+*.o
+*.out
+
+```
