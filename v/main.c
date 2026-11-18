@@ -2,17 +2,19 @@
 #include <string.h>
 #include <errno.h>
 #include <windows.h>
+#include "util.h"
 
 int main(){
     SetConsoleOutputCP(CP_UTF8);
     FILE *title;
     char escolha, escolha_salvar;
-    int ch;
+    int ch, executando = 1;
+
+    // VetorLivros biblioteca = criar_vetor(10);  ??
 
     title = fopen("title.txt", "r");
     if (title == NULL){
-        printf("Aviso: Nao foi possivel carregar title.txt (%s)\n", strerror(errno));
-        return 1;
+        printf("Aviso: Nao foi possivel carregar title.txt (%s)\n\n", strerror(errno));
     }                       //abertura e checagem de arquivo
     while ((ch = fgetc(title)) != EOF ){
             printf("%c", ch);
@@ -37,6 +39,7 @@ int main(){
         printf("\nEscolha uma opcao: \n");
 
         scanf(" %c", &escolha);
+        limpar_buffer();
 
         switch (escolha){
             case '1':
@@ -80,8 +83,12 @@ int main(){
 
                     if (escolha == '1') {
                         //função
+                        printf("Salvando em arquivo de texto\n");
+                        return 0;
                     } else if (escolha == '2') {
                         //função
+                        printf("Salvando em arquivo binario\n");
+                        return 0;
                     }
                 } else if(escolha_salvar == '2'){
                     return 0;
@@ -93,7 +100,7 @@ int main(){
                 printf("Opcao invalida! Tente novamente.\n");
                 break;
         }
-    } while (escolha != 9);
+    } while (escolha != '9');
     
     return 0;
 }
