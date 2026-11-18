@@ -20,3 +20,11 @@ livro criar_livros(int id, const char *titulo, const char * autor, int ano, cons
   
   return novo_livro;
 }
+
+
+
+void imprimir_livro (livro l){  //Função para imprimir os livros bonitinhos
+
+  printf ("ID: %d. \n TITULO: %s. AUTOR: %s. \n ANO: %d. \n CATEGORIA: %s.",
+          l.id, l.titulo, l.autor, l.ano, l.categoria );
+}
