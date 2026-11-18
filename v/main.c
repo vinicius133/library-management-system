@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <errno.h>
 #include <windows.h>
 
 int main(){
@@ -9,14 +11,15 @@ int main(){
 
     title = fopen("title.txt", "r");
     if (title == NULL){
-        printf("ERROR: %s!\n", strerror(errno));
+        printf("Aviso: Nao foi possivel carregar title.txt (%s)\n", strerror(errno));
         return 1;
     }                       //abertura e checagem de arquivo
-
-
     while ((ch = fgetc(title)) != EOF ){
             printf("%c", ch);
-        }
+        }                   //printa o título do programa presente no title.txt
+    fclose(title);
+
+
     do{
         printf("\n╔══════════════════════════════════════════════╗\n");
         printf("║           SISTEMA DE BIBLIOTECA              ║\n");
@@ -36,66 +39,61 @@ int main(){
         scanf(" %c", &escolha);
 
         switch (escolha){
-        case '1':
-            // Cadastrar livro
-            break;
+            case '1':
+                // Cadastrar livro
+                break;
 
-        case '2':
-            // Listar livros
-            break;
+            case '2':
+                // Listar livros
+                break;
 
-        case '3':
-            // Buscar livros
-            break;
+            case '3':
+                // Buscar livros
+                break;
 
-        case '4':
-            // Remover livro
-            break;
+            case '4':
+                // Remover livro
+                break;
 
-        case '5':
-            // Salvar em texto
-            break;
+            case '5':
+                // Salvar em texto
+                break;
 
-        case '6':
-            // Salvar em binario
-            break;
+            case '6':
+                // Salvar em binario
+                break;
 
-        case '7':
-            // Carregar dados
-            break;
+            case '7':
+                // Carregar dados
+                break;
 
-        case '8':
-            // Relatorios
-            break;
+            case '8':
+                // Relatorios
+                break;
 
-        case '9':
-            printf("\nDeseja salvar antes de encerrar?\n1 - Sim\n2 - Não\n");
-            scanf(" %c", &escolha_salvar);
-            if (escolha_salvar == '1'){
-                printf("\n1 - Salvar dados em arquivo texto\n2 - Salvar dados em arquivo binário\n");
-                scanf(" %c", &escolha);
+            case '9':
+                printf("\nDeseja salvar antes de encerrar?\n1 - Sim\n2 - Não\n");
+                scanf(" %c", &escolha_salvar);
+                if (escolha_salvar == '1'){
+                    printf("\n1 - Salvar dados em arquivo texto\n2 - Salvar dados em arquivo binário\n");
+                    scanf(" %c", &escolha);
 
-                if (escolha == '5') {
-                    //função
-                } else if (escolha == '6') {
-                    //função
+                    if (escolha == '1') {
+                        //função
+                    } else if (escolha == '2') {
+                        //função
+                    }
+                } else if(escolha_salvar == '2'){
+                    return 0;
+                } else{
+                    printf("Opcao invalida! Tente novamente.\n");
                 }
-                
-            } else if (escolha_salvar == '2'){
-                return 0;
-            }
-            
-            break;
 
-        default:
-            printf("Opcao invalida! Tente novamente.\n");
-            break;
+            default:
+                printf("Opcao invalida! Tente novamente.\n");
+                break;
         }
     } while (escolha != 9);
     
-
-    
-
-    fclose(title);
     return 0;
 }
