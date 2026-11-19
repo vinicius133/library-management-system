@@ -8,6 +8,7 @@
 #include <locale.h>
 #include "util.h"
 #include "vetor.h"
+#include "livro.h"
 
 int main(){
     #ifdef _WIN32
@@ -24,7 +25,7 @@ int main(){
     #endif      //tentativa de aplicação de UTF-8 para windows e linux
 
     FILE *title;
-    char escolha, escolha_salvar;
+    char escolha;
     int ch, executando = 1;
 
     VetorLivros biblioteca;
@@ -94,7 +95,7 @@ int main(){
                 livro novo = criar_livros(id, titulo, autor, ano, categoria);       //montagem do struct do livro com as info adquiridas
 
                 if (cadastrar_livro(&biblioteca, novo) == 1){
-                    printf("Livro cadastrado com sucesso!\n");
+                    printf("\nLivro cadastrado com sucesso!\n");
                 }
                 
                 break;
