@@ -1,10 +1,14 @@
-main: main_obj rm_main
+all: main_exec clean
 
-main_obj: util.o
-	gcc main.c util.o -o main_exec
+main_exec: main.o util.o
+	gcc main.o util.o -o main_exec
 
-util.o:
+main.o: main.c
+	gcc -c main.c
+
+util.o: util.c
 	gcc -c util.c
 
-rm_main:
-	rm util.o
+.PHONY: all clean
+clean:
+	rm -f *.o
