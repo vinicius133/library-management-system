@@ -14,7 +14,7 @@ typedef struct {
 
 } livro;
 
-livro criar_livros(int id, const char *titulo, const char * autor, int ano, const char *categoria );
+livro criar_livros(int id, const char *titulo, const char * autor, int ano, const char *categoria );//função para criar livros de acordo com o padrao do professor
 
 
 #endif
