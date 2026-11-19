@@ -1,54 +1,135 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <windows.h>
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN // evita headers pesados e conflitos de macros
+    #include <windows.h>
+#endif
+#include <locale.h>
+#include "util.h"
+#include "vetor.h"
 
 int main(){
-    SetConsoleOutputCP(CP_UTF8);
+    #ifdef _WIN32
+        SetConsoleCP(CP_UTF8);
+        SetConsoleOutputCP(CP_UTF8);
+
+        if (setlocale(LC_ALL, ".UTF-8") == NULL) {
+            printf("Erro ao configurar UTF-8.\n");
+        }
+    #else
+        if (setlocale(LC_ALL, "") == NULL) {
+            printf("Erro ao configurar UTF-8.\n");
+        }
+    #endif      //tentativa de aplicação de UTF-8 para windows e linux
+
     FILE *title;
     char escolha, escolha_salvar;
-    int ch;
+    int ch, executando = 1;
+
+    VetorLivros biblioteca;
+    inicializar(&biblioteca, 10);       //inicialização do vetor de livros
 
     title = fopen("title.txt", "r");
     if (title == NULL){
-        printf("Aviso: Nao foi possivel carregar title.txt (%s)\n", strerror(errno));
-        return 1;
-    }                       //abertura e checagem de arquivo
-    while ((ch = fgetc(title)) != EOF ){
-            printf("%c", ch);
-        }                   //printa o título do programa presente no title.txt
-    fclose(title);
+        printf("Aviso: Não foi possível carregar title.txt (%s)\n", strerror(errno));
+    } else{                             //abertura e checagem do arquivo de título
+        while ((ch = fgetc(title)) != EOF ){
+                printf("%c", ch);
+            }                           //printa o título do programa presente no title.txt
+        fclose(title);
+    }
 
+    // 1. Login
+    // 2. Inicialização do vetor (malloc)
+    // 3. Carregamento automático do arquivo inicial
 
     do{
         printf("\n╔══════════════════════════════════════════════╗\n");
-        printf("║           SISTEMA DE BIBLIOTECA              ║\n");
+        printf("║           SISTEMA DE BIBLIOTECA (LMS)        ║\n");
         printf("╠══════════════════════════════════════════════╣\n");
         printf("║  [1] Cadastrar livro                         ║\n");
         printf("║  [2] Listar todos os livros                  ║\n");
         printf("║  [3] Buscar livros                           ║\n");
         printf("║  [4] Remover livro por ID                    ║\n");
         printf("║  [5] Salvar em arquivo texto                 ║\n");
-        printf("║  [6] Salvar em arquivo binario               ║\n");
+        printf("║  [6] Salvar em arquivo binário               ║\n");
         printf("║  [7] Carregar dados de arquivos ao iniciar   ║\n");
-        printf("║  [8] Gerar relatorios                        ║\n");
+        printf("║  [8] Gerar relatórios                        ║\n");
         printf("║  [9] Sair                                    ║\n");
         printf("╠══════════════════════════════════════════════╣\n");
-        printf("\nEscolha uma opcao: \n");
+        printf("\nEscolha uma opção: \n");
 
         scanf(" %c", &escolha);
+        limpar_buffer();
 
         switch (escolha){
             case '1':
                 // Cadastrar livro
+
+                int id, ano;
+                char titulo[100], autor[100], categoria[50];    //informações necessárias do struct dos livros
+
+                printf("\n--- Cadastrar Livro ---\n");
+                printf("ID: ");
+                scanf("%d", &id);
+                limpar_buffer();
+
+                printf("Título: ");
+                fgets(titulo, sizeof(titulo), stdin);
+                titulo[strcspn(titulo, "\n")] = '\0';           // remover o enter do final
+
+                printf("Autor: ");
+                fgets(autor, sizeof(autor), stdin);
+                autor[strcspn(autor, "\n")] = '\0';
+
+                printf("Ano: ");
+                scanf("%d", &ano);
+                limpar_buffer();
+
+                printf("Categoria: ");
+                fgets(categoria, sizeof(categoria), stdin);
+                categoria[strcspn(categoria, "\n")] = '\0';
+
+                livro novo = criar_livros(id, titulo, autor, ano, categoria);       //montagem do struct do livro com as info adquiridas
+
+                if (cadastrar_livro(&biblioteca, novo) == 1){
+                    printf("Livro cadastrado com sucesso!\n");
+                }
+                
                 break;
 
             case '2':
                 // Listar livros
+
+                if (biblioteca.tamanho == 0){
+                    printf("Nenhum livro cadastrado.\n");
+                } else{
+                    for (int i = 0; i < biblioteca.tamanho; i++){
+                        // falta imprimir_livro no livro.h
+                        imprimir_livro(biblioteca.livros[i]);
+                        printf("\n------------------------\n");
+                    }
+                }
+
                 break;
 
             case '3':
                 // Buscar livros
+
+                int id_busca;
+                printf("Digite o ID do livro: ");
+                scanf("%d", &id_busca);
+                limpar_buffer();
+
+                int pos = buscar_por_id(&biblioteca, id_busca);
+                if (pos != -1) {
+                    imprimir_livro(biblioteca.livros[pos]);
+                    printf("\n");
+                } else {
+                    printf("Livro não encontrado.\n");
+                }
+
                 break;
 
             case '4':
@@ -73,27 +154,42 @@ int main(){
 
             case '9':
                 printf("\nDeseja salvar antes de encerrar?\n1 - Sim\n2 - Não\n");
-                scanf(" %c", &escolha_salvar);
-                if (escolha_salvar == '1'){
+                scanf(" %c", &escolha);
+                limpar_buffer();
+
+                if (escolha == '1'){
                     printf("\n1 - Salvar dados em arquivo texto\n2 - Salvar dados em arquivo binário\n");
                     scanf(" %c", &escolha);
+                    limpar_buffer();
 
                     if (escolha == '1') {
                         //função
+                        printf("Salvando em arquivo de texto\n");
+                        executando = 0;
+
                     } else if (escolha == '2') {
                         //função
+                        printf("Salvando em arquivo binario\n");
+                        executando = 0;
+                    } else {
+                        printf("Opcao invalida! Retornando ao menu.\n");
                     }
-                } else if(escolha_salvar == '2'){
-                    return 0;
-                } else{
-                    printf("Opcao invalida! Tente novamente.\n");
+
+                } else if(escolha == '2'){
+                    executando = 0;
+                } else {
+                    printf("Opcao invalida! Retornando ao menu.\n");
                 }
+                break;
 
             default:
                 printf("Opcao invalida! Tente novamente.\n");
                 break;
         }
-    } while (escolha != 9);
+    } while (executando != 0);
+
+    liberar(&biblioteca);
+    printf("Sistema encerrado.\n");
     
     return 0;
 }
