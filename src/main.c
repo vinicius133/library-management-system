@@ -189,6 +189,9 @@ int main(){
 
             case '8':
                 // Relatorios
+
+                gerar_relatorios(&biblioteca);
+
                 break;
 
             case '9':
