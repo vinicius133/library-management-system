@@ -101,23 +101,16 @@ int main(){
                 // Listar livros
 
                 int escolha_ordenar;
-                printf("1) Ordenar por título\n2) Ordenar por ano");
-                scanf("%d", &escolha_ordenar);
+                printf("1) Ordenar por título\n2) Ordenar por ano\n");
+                scanf("%d", &escolha_ordenar);              //escolha de em qual ordem mostrar os livros
                 limpar_buffer();
 
-                
-
-                if(escolha_ordenar == 1){
-                    
-                }
-
-
                 if (biblioteca.tamanho == 0){
-                    printf("Nenhum livro cadastrado.\n");
+                    printf("Nenhum livro cadastrado.\n");       //checagem de biblioteca vazia
                 } else{
+                    ordenar_livros(&biblioteca, escolha_ordenar);       //ordenação usando a função e o tipo de ordenação escolhido
                     for (int i = 0; i < biblioteca.tamanho; i++){
-                        // falta imprimir_livro no livro.h
-                        imprimir_livro(biblioteca.livros[i]);
+                        imprimir_livro(biblioteca.livros[i]);           //impressão dos livros já ordenados
                         printf("\n------------------------\n");
                     }
                 }
@@ -126,18 +119,44 @@ int main(){
 
             case '3':
                 // Buscar livros
-
-                int id_buscar;
-                printf("Digite o ID do livro: ");
-                scanf("%d", &id_buscar);
+                int escolha_buscar;
+                char termo[100];
+                printf("1) Buscar por título (substring)\n2) Buscar por autor\n3) Buscar por categoria\n");
+                scanf("%d", &escolha_buscar);              //escolha de em qual ordem mostrar os livros
                 limpar_buffer();
 
-                int pos = buscar_por_id(&biblioteca, id_buscar);
-                if (pos != -1) {
-                    imprimir_livro(biblioteca.livros[pos]);
-                    printf("\n");
-                } else {
-                    printf("Livro não encontrado.\n");
+                
+
+                if(escolha_buscar == 1){
+                    printf("Digite o título da obra: ");
+                    ler_string(termo, 100);
+                    if (termo[0] == '\0') {
+                        printf("Termo de busca vazio! Operação cancelada.\n");
+                    } else{
+                        buscar_por_titulo(&biblioteca, termo);
+                    }
+
+                } else if(escolha_buscar == 2){
+                    printf("Digite o autor da obra: ");
+                    ler_string(termo, 100);
+                    if (termo[0] == '\0') {
+                        printf("Termo de busca vazio! Operação cancelada.\n");
+                    } else{
+                        buscar_por_autor(&biblioteca, termo);
+                    }
+
+                } else if(escolha_buscar == 3){
+                    printf("Digite a categoria da obra: ");
+                    ler_string(termo, 50);
+                    if (termo[0] == '\0') {
+                        printf("Termo de busca vazio! Operação cancelada.\n");
+                    } else{
+                        buscar_por_categoria(&biblioteca, termo);
+                    }
+                    
+
+                } else{
+                    printf("Opção inválida! Retornando ao menu.\n");
                 }
 
                 break;
