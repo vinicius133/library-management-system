@@ -9,6 +9,7 @@
 #include "util.h"
 #include "vetor.h"
 #include "livro.h"
+#include "arquivo.h"
 
 int main(){
     #ifdef _WIN32
@@ -169,8 +170,13 @@ int main(){
                 // Salvar em texto
                 limpar_tela();
 
-                pausar_tela();
+                if(salvar_texto(&biblioteca) == 1){
+                    printf("Arquivo de texto salvo com sucesso!\n");
+                } else{
+                    printf("Não foi possível salvar no arquivo.\n");
+                };
 
+                pausar_tela();
                 break;
 
             case 6:

@@ -5,6 +5,6 @@
 #define TXT "data/livros.txt"
 #define BIN "data/livros.data"
 
-int salvar_texto(const char *nome_arquivo, const VetorLivros *v);
+int salvar_texto(const VetorLivros *v);
 
 #endif
