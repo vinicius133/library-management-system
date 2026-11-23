@@ -134,7 +134,7 @@ void buscar_por_titulo(VetorLivros *v, const char *titulo) {
         }
     }
     if (!achou) {
-        printf("\nNenhum livro encontrado com o titulo \"%s\".\n", titulo);
+        printf("\nNenhum livro encontrado com o título \"%s\".\n", titulo);
     }
 }
 
