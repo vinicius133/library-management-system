@@ -68,21 +68,19 @@ int main(){
             case '1':
                 // Cadastrar livro
 
-                int id, ano;
+                int id_cadastro, ano;
                 char titulo[100], autor[100], categoria[50];    //informações necessárias do struct dos livros
 
                 printf("\n--- Cadastrar Livro ---\n");
                 printf("ID: ");
-                scanf("%d", &id);
+                scanf("%d", &id_cadastro);
                 limpar_buffer();
 
                 printf("Título: ");
                 ler_string(titulo, 100);
-                limpar_espacos(titulo);
 
                 printf("Autor: ");
                 ler_string(autor, 100);
-                limpar_espacos(autor);
 
                 printf("Ano: ");
                 scanf("%d", &ano);
@@ -90,9 +88,8 @@ int main(){
 
                 printf("Categoria: ");
                 ler_string(categoria, 50);
-                limpar_espacos(categoria);
 
-                livro novo = criar_livros(id, titulo, autor, ano, categoria);       //montagem do struct do livro com as info adquiridas
+                livro novo = criar_livros(id_cadastro, titulo, autor, ano, categoria);       //montagem do struct do livro com as info adquiridas
 
                 if (cadastrar_livro(&biblioteca, novo) == 1){
                     printf("\nLivro cadastrado com sucesso!\n");
@@ -102,6 +99,18 @@ int main(){
 
             case '2':
                 // Listar livros
+
+                int escolha_ordenar;
+                printf("1) Ordenar por título\n2) Ordenar por ano");
+                scanf("%d", &escolha_ordenar);
+                limpar_buffer();
+
+                
+
+                if(escolha_ordenar == 1){
+                    
+                }
+
 
                 if (biblioteca.tamanho == 0){
                     printf("Nenhum livro cadastrado.\n");
@@ -118,12 +127,12 @@ int main(){
             case '3':
                 // Buscar livros
 
-                int id_busca;
+                int id_buscar;
                 printf("Digite o ID do livro: ");
-                scanf("%d", &id_busca);
+                scanf("%d", &id_buscar);
                 limpar_buffer();
 
-                int pos = buscar_por_id(&biblioteca, id_busca);
+                int pos = buscar_por_id(&biblioteca, id_buscar);
                 if (pos != -1) {
                     imprimir_livro(biblioteca.livros[pos]);
                     printf("\n");
@@ -135,10 +144,20 @@ int main(){
 
             case '4':
                 // Remover livro
+                int id_remover;
+                printf("Digite o ID do livro que será removido: ");
+                scanf("%d", &id_remover);
+                limpar_buffer();
+
+                if(remover_livro(&biblioteca, id_remover) == 1){
+                    printf("\nLivro removido com sucesso!\n");
+                }
+
                 break;
 
             case '5':
                 // Salvar em texto
+
                 break;
 
             case '6':

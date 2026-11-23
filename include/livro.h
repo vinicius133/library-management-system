@@ -6,15 +6,15 @@
 
 typedef struct {
 
-	int id ;
+	int id;
 	char titulo[100];
 	char autor[100];
-	int ano ;
+	int ano;
 	char categoria[50];
 
 } livro;
 
-livro criar_livros(int id, const char *titulo, const char * autor, int ano, const char *categoria );//função para criar livros de acordo com o padrao do professor
+livro criar_livros(int id, const char *titulo, const char * autor, int ano, const char *categoria);//função para criar livros de acordo com o padrao do professor
 
 void imprimir_livro (livro l);
 

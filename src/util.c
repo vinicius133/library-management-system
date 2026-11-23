@@ -7,12 +7,6 @@ void limpar_buffer(){
     while ((c = getchar()) != '\n' && c != EOF);        // descarta os caracteres restantes do buffer até encontrar uma quebra de linha ou o fim da entrada.
 }
 
-void ler_string(char *destino, int tamanho){
-    if (fgets(destino, tamanho, stdin) == NULL) return;
-    fgets(destino, tamanho, stdin);
-    destino[strcspn(destino, "\n")] = '\0';     //lê a string e já retira o enter no final automaticamente
-}
-
 void limpar_espacos(char *str){
     if (str == 0) return; // proteção contra ponteiro null
 
@@ -38,4 +32,16 @@ void limpar_espacos(char *str){
     }
 
     str[j] = '\0';
+}
+
+
+void ler_string(char *destino, int tamanho){
+    if (fgets(destino, tamanho, stdin) != NULL) {
+        if (strchr(destino, '\n') == NULL) {
+            limpar_buffer();
+        } else {
+            destino[strcspn(destino, "\n")] = '\0';
+        }
+        limpar_espacos(destino); // Já limpa a string lida automaticamente!
+    }
 }
