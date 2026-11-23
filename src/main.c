@@ -31,7 +31,7 @@ int main(){
     VetorLivros biblioteca;
     inicializar(&biblioteca, 10);       //inicialização do vetor de livros
 
-    title = fopen("title.txt", "r");
+    title = fopen("data/title.txt", "r");
     if (title == NULL){
         printf("Aviso: Não foi possível carregar title.txt (%s)\n", strerror(errno));
     } else{                             //abertura e checagem do arquivo de título
@@ -77,20 +77,20 @@ int main(){
                 limpar_buffer();
 
                 printf("Título: ");
-                fgets(titulo, sizeof(titulo), stdin);
-                titulo[strcspn(titulo, "\n")] = '\0';           // remover o enter do final
+                ler_string(titulo, 100);
+                limpar_espacos(titulo);
 
                 printf("Autor: ");
-                fgets(autor, sizeof(autor), stdin);
-                autor[strcspn(autor, "\n")] = '\0';
+                ler_string(autor, 100);
+                limpar_espacos(autor);
 
                 printf("Ano: ");
                 scanf("%d", &ano);
                 limpar_buffer();
 
                 printf("Categoria: ");
-                fgets(categoria, sizeof(categoria), stdin);
-                categoria[strcspn(categoria, "\n")] = '\0';
+                ler_string(categoria, 50);
+                limpar_espacos(categoria);
 
                 livro novo = criar_livros(id, titulo, autor, ano, categoria);       //montagem do struct do livro com as info adquiridas
 
@@ -170,27 +170,27 @@ int main(){
 
                     } else if (escolha == '2') {
                         //função
-                        printf("Salvando em arquivo binario\n");
+                        printf("Salvando em arquivo binário\n");
                         executando = 0;
                     } else {
-                        printf("Opcao invalida! Retornando ao menu.\n");
+                        printf("Opção inválida! Retornando ao menu.\n");
                     }
 
                 } else if(escolha == '2'){
                     executando = 0;
                 } else {
-                    printf("Opcao invalida! Retornando ao menu.\n");
+                    printf("Opção inválida! Retornando ao menu.\n");
                 }
                 break;
 
             default:
-                printf("Opcao invalida! Tente novamente.\n");
+                printf("Opção inválida! Tente novamente.\n");
                 break;
         }
     } while (executando != 0);
 
     liberar(&biblioteca);
-    printf("Sistema encerrado.\n");
+    printf("\nSistema encerrado.\n");
     
     return 0;
 }

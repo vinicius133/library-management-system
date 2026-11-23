@@ -1,20 +1,26 @@
-all: main_exec clean
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11 -Iinclude
 
-main_exec: main.o util.o vetor.o livro.o
-	gcc main.o util.o vetor.o livro.o -o main_exec
+OBJS = src/main.o src/util.o src/vetor.o src/livro.o
+EXEC = lms
 
-main.o: main.c util.h vetor.h livro.h
-	gcc -c main.c
+all: $(EXEC) clean
 
-util.o: util.c util.h
-	gcc -c util.c
+$(EXEC): $(OBJS)
+	$(CC) $(OBJS) -o $(EXEC)
 
-vetor.o: vetor.c vetor.h livro.h
-	gcc -c vetor.c
+src/main.o: src/main.c include/util.h include/vetor.h include/livro.h
+	$(CC) $(CFLAGS) -c src/main.c -o src/main.o
 
-livro.o: livro.c livro.h
-	gcc -c livro.c
+src/util.o: src/util.c include/util.h
+	$(CC) $(CFLAGS) -c src/util.c -o src/util.o
+
+src/vetor.o: src/vetor.c include/vetor.h include/livro.h
+	$(CC) $(CFLAGS) -c src/vetor.c -o src/vetor.o
+
+src/livro.o: src/livro.c include/livro.h
+	$(CC) $(CFLAGS) -c src/livro.c -o src/livro.o
 
 .PHONY: all clean
 clean:
-	rm -f *.o
+	rm -f src/*.o
