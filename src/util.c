@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "util.h"
 
 void limpar_buffer(){
@@ -65,4 +66,17 @@ int ler_inteiro() {
         limpar_buffer();
         printf("Entrada inválida! Digite apenas números inteiros: ");
     }
+}
+
+void pausar_tela() {
+    printf("\nPressione Enter para continuar...");
+    limpar_buffer(); // Reaproveita sua função que já espera até ler um '\n'!
+}
+
+void limpar_tela() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
 }

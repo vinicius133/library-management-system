@@ -3,7 +3,7 @@
 <p align="left">
   <img src="https://img.shields.io/badge/Language-C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C Badge">
   <img src="https://img.shields.io/badge/Build-Makefile-427819?style=for-the-badge&logo=gnu-make&logoColor=white" alt="Makefile Badge">
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey?style=for-the-badge" alt="Platform Badge">
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-purple?style=for-the-badge" alt="Platform Badge">
   <img src="https://img.shields.io/badge/Status-In%20Development-yellow?style=for-the-badge" alt="Status Badge">
 </p>
 
