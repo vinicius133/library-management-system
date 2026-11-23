@@ -1,13 +1,13 @@
 # 📚 Library Management System (LMS)
 
 <p align="left">
-  <img src="https://img.shields.io/badge/Language-C11-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C11 Badge">
+  <img src="https://img.shields.io/badge/Language-C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C Badge">
   <img src="https://img.shields.io/badge/Build-Makefile-427819?style=for-the-badge&logo=gnu-make&logoColor=white" alt="Makefile Badge">
   <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey?style=for-the-badge" alt="Platform Badge">
   <img src="https://img.shields.io/badge/Status-In%20Development-yellow?style=for-the-badge" alt="Status Badge">
 </p>
 
-> **Final Project — Computer Programming I**  
+> **Final Project | Computer Programming I**  
 > A modular, terminal-based Library Management System built from scratch in C, combining dynamic memory management, recursive sorting, multi-filter search, user authentication, statistical reporting, and dual-format persistence (.txt, .dat, and .csv) with cross-platform UTF-8 support.
 
 ---
@@ -20,10 +20,10 @@ The project is actively under development:
 - [x] **Cross-Platform UTF-8 Support**: Automatic console encoding setup for both Windows (`SetConsoleCP`/`SetConsoleOutputCP`) and Linux (`setlocale`).
 - [x] **Dynamic Book Vector (`VetorLivros`)**: Initialized dynamically in memory with automatic cleanup (`liberar`) upon exit.
 - [x] **Custom CLI Interface & Banner**: Interactive box-drawn terminal menu paired with an external ASCII splash header (`title.txt`).
-- [x] **Book Registration & Listing**: Full input sanitization (`limpar_buffer`), string handling with spaces, duplicate ID validation, and formatted console output.
-- [x] **ID Search & Safe Exit Flow**: Direct book lookup by ID and interactive exit confirmation prompt.
-- [ ] **Book Removal & Array Shifting**: Removing records by ID without leaving memory gaps.
-- [ ] **Sorting & Advanced Search**: Recursive Merge Sort and case-insensitive substring search (title, author, category).
+- [x] **Book Registration & Listing**: Full input sanitization (`limpar_buffer & limpar_espacos`), string handling with spaces, duplicate ID validation, and formatted console output.
+- [x] **Multi-filter search & Safe Exit Flow**: Direct book lookup by author, category and title. Also have an interactive exit confirmation prompt.
+- [x] **Book Removal & Array Shifting**: Removes books by ID without leaving memory gaps.
+- [x] **Sorting & Advanced Search**: Recursive Merge Sort and case-insensitive substring search (title, author, category).
 - [ ] **Dual File Persistence**: Saving and loading records in both plain text (`livros.txt`) and binary (`livros.dat`) formats.
 - [ ] **Bonus Features**: User authentication (`usuarios.txt`), extra whitespace trimming, automatic category grouping, and `.csv` report export.
 

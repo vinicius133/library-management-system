@@ -35,13 +35,34 @@ void limpar_espacos(char *str){
 }
 
 
-void ler_string(char *destino, int tamanho){
-    if (fgets(destino, tamanho, stdin) != NULL) {
-        if (strchr(destino, '\n') == NULL) {
-            limpar_buffer();
-        } else {
-            destino[strcspn(destino, "\n")] = '\0';
+void ler_string(char *destino, int tamanho) {
+    while (1) {
+        if (fgets(destino, tamanho, stdin) != NULL) {
+            if (strchr(destino, '\n') == NULL) {
+                limpar_buffer();
+            } else {
+                destino[strcspn(destino, "\n")] = '\0';
+            }
+
+            limpar_espacos(destino); //já limpa os espaços automaticamente
+
+            if (destino[0] != '\0') {
+                return; //  sai do loop só se sobrou algum caractere válido
+            }
         }
-        limpar_espacos(destino); // Já limpa a string lida automaticamente!
+        printf("Entrada vazia não permitida! Digite novamente: ");
+    }
+}
+
+
+int ler_inteiro() {
+    int valor;
+    while (1) {
+        if (scanf("%d", &valor) == 1) {
+            limpar_buffer();
+            return valor;
+        }
+        limpar_buffer();
+        printf("Entrada inválida! Digite apenas números inteiros: ");
     }
 }

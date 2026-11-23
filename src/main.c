@@ -25,7 +25,7 @@ int main(){
     #endif      //tentativa de aplicação de UTF-8 para windows e linux
 
     FILE *title;
-    char escolha;
+    int escolha;
     int ch, executando = 1;
 
     VetorLivros biblioteca;
@@ -61,20 +61,18 @@ int main(){
         printf("╠══════════════════════════════════════════════╣\n");
         printf("\nEscolha uma opção: \n");
 
-        scanf(" %c", &escolha);
-        limpar_buffer();
+        escolha = ler_inteiro();
 
         switch (escolha){
-            case '1':
+            case 1:
                 // Cadastrar livro
 
-                int id_cadastro, ano;
+                int id_cadastro = 0, ano = 0;
                 char titulo[100], autor[100], categoria[50];    //informações necessárias do struct dos livros
 
                 printf("\n--- Cadastrar Livro ---\n");
                 printf("ID: ");
-                scanf("%d", &id_cadastro);
-                limpar_buffer();
+                id_cadastro = ler_inteiro();
 
                 printf("Título: ");
                 ler_string(titulo, 100);
@@ -83,8 +81,7 @@ int main(){
                 ler_string(autor, 100);
 
                 printf("Ano: ");
-                scanf("%d", &ano);
-                limpar_buffer();
+                ano = ler_inteiro();
 
                 printf("Categoria: ");
                 ler_string(categoria, 50);
@@ -97,13 +94,17 @@ int main(){
                 
                 break;
 
-            case '2':
+            case 2:
                 // Listar livros
 
-                int escolha_ordenar;
+                int escolha_ordenar = 0;
                 printf("1) Ordenar por título\n2) Ordenar por ano\n");
-                scanf("%d", &escolha_ordenar);              //escolha de em qual ordem mostrar os livros
-                limpar_buffer();
+                escolha_ordenar = ler_inteiro();
+
+                if (escolha_ordenar != 1 && escolha_ordenar != 2) {
+                    printf("Opção inválida! Retornando ao menu.\n");
+                    break;
+                }
 
                 if (biblioteca.tamanho == 0){
                     printf("Nenhum livro cadastrado.\n");       //checagem de biblioteca vazia
@@ -117,56 +118,41 @@ int main(){
 
                 break;
 
-            case '3':
+            case 3:
                 // Buscar livros
-                int escolha_buscar;
+                int escolha_buscar = 0;
                 char termo[100];
                 printf("1) Buscar por título (substring)\n2) Buscar por autor\n3) Buscar por categoria\n");
-                scanf("%d", &escolha_buscar);              //escolha de em qual ordem mostrar os livros
-                limpar_buffer();
+                escolha_buscar = ler_inteiro();         //escolha de em qual ordem mostrar os livros
 
                 
 
                 if(escolha_buscar == 1){
                     printf("Digite o título da obra: ");
                     ler_string(termo, 100);
-                    if (termo[0] == '\0') {
-                        printf("Termo de busca vazio! Operação cancelada.\n");
-                    } else{
-                        buscar_por_titulo(&biblioteca, termo);
-                    }
+                    buscar_por_titulo(&biblioteca, termo);
 
                 } else if(escolha_buscar == 2){
                     printf("Digite o autor da obra: ");
                     ler_string(termo, 100);
-                    if (termo[0] == '\0') {
-                        printf("Termo de busca vazio! Operação cancelada.\n");
-                    } else{
-                        buscar_por_autor(&biblioteca, termo);
-                    }
+                    buscar_por_autor(&biblioteca, termo);
 
                 } else if(escolha_buscar == 3){
                     printf("Digite a categoria da obra: ");
                     ler_string(termo, 50);
-                    if (termo[0] == '\0') {
-                        printf("Termo de busca vazio! Operação cancelada.\n");
-                    } else{
-                        buscar_por_categoria(&biblioteca, termo);
-                    }
+                    buscar_por_categoria(&biblioteca, termo);
                     
-
                 } else{
                     printf("Opção inválida! Retornando ao menu.\n");
                 }
 
                 break;
 
-            case '4':
+            case 4:
                 // Remover livro
-                int id_remover;
+                int id_remover = 0;
                 printf("Digite o ID do livro que será removido: ");
-                scanf("%d", &id_remover);
-                limpar_buffer();
+                id_remover = ler_inteiro();
 
                 if(remover_livro(&biblioteca, id_remover) == 1){
                     printf("\nLivro removido com sucesso!\n");
@@ -174,35 +160,33 @@ int main(){
 
                 break;
 
-            case '5':
+            case 5:
                 // Salvar em texto
 
                 break;
 
-            case '6':
+            case 6:
                 // Salvar em binario
                 break;
 
-            case '7':
+            case 7:
                 // Carregar dados
                 break;
 
-            case '8':
+            case 8:
                 // Relatorios
 
                 gerar_relatorios(&biblioteca);
 
                 break;
 
-            case '9':
+            case 9:
                 printf("\nDeseja salvar antes de encerrar?\n1 - Sim\n2 - Não\n");
-                scanf(" %c", &escolha);
-                limpar_buffer();
+                escolha = ler_inteiro();
 
                 if (escolha == '1'){
                     printf("\n1 - Salvar dados em arquivo texto\n2 - Salvar dados em arquivo binário\n");
-                    scanf(" %c", &escolha);
-                    limpar_buffer();
+                    escolha = ler_inteiro();
 
                     if (escolha == '1') {
                         //função

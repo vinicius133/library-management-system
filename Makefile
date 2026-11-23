@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -Iinclude
+CFLAGS = -Wall -Wextra -Iinclude
 
 OBJS = src/main.o src/util.o src/vetor.o src/livro.o
 EXEC = lms
