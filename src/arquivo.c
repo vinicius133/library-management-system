@@ -2,7 +2,7 @@
 #include "arquivo.h"
 
 int salvar_texto(const VetorLivros *v){
-    FILE *fp = fopen(TXT, "w");
+    FILE *fp = fopen(TXT, "a");
     if (fp == NULL) {
         return 0;           //retorna 0 se não conseguir abrir o arquivo para escrever
     }

@@ -49,16 +49,14 @@ int main(){
             fclose(title);
         }
 
-        printf("\n╔══════════════════════════════════════════════════════════════════════╗\n");
-        printf("║                       SISTEMA DE BIBLIOTECA (LMS)                    ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════════╣\n");
-        printf("║  [1] Cadastrar livro              ║  [2] Listar todos os livros      ║\n");
-        printf("║  [3] Buscar livros                ║  [4] Remover livro por ID        ║\n");
-        printf("║  [5] Salvar em arquivo texto      ║  [6] Salvar em arquivo binário   ║\n");
-        printf("║  [7] Carregar dados ao iniciar    ║  [8] Gerar relatórios            ║\n");
-        printf("║  [9] Sair                         ║                                  ║\n");
-        printf("╚══════════════════════════════════════════════════════════════════════╝\n");
-        printf("\nEscolha uma opção: \n");
+        printf("\n╔═════                                                                 ═════╗\n");
+        printf("║                         SISTEMA DE BIBLIOTECA                             ║\n");
+        printf("╠═══════════════════════════════════════════════════════════════════════════╣\n");
+        printf("║  [1] Cadastrar livro       [2] Listar livros        [3] Buscar livros     ║\n");
+        printf("║  [4] Remover livro por ID  [5] Salvar em texto      [6] Salvar em binário ║\n");
+        printf("║  [7] Carregar dados        [8] Gerar relatórios     [9] Sair              ║\n");
+        printf("╚═══════════════════════════════════════════════════════════════════════════╝\n");
+        printf("\nEscolha uma opção: ");
 
         escolha = ler_inteiro();
 
@@ -207,12 +205,16 @@ int main(){
                 escolha = ler_inteiro();
 
                 if (escolha == 1){
-                    printf("\n1 - Salvar dados em arquivo texto\n2 - Salvar dados em arquivo binário\n");
+                    printf("\n1 - Salvar dados em arquivo de texto\n2 - Salvar dados em arquivo binário\n");
                     escolha = ler_inteiro();
 
                     if (escolha == 1) {
-                        //função
-                        printf("Salvando em arquivo de texto\n");
+                        if(salvar_texto(&biblioteca) == 1){
+                            printf("Arquivo de texto salvo com sucesso!\n");
+                        } else{
+                            printf("Não foi possível salvar no arquivo.\n");
+                        };
+                        
                         executando = 0;
 
                     } else if (escolha == 2) {
