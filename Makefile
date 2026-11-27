@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
 
-OBJS = src/main.o src/util.o src/vetor.o src/livro.o
+OBJS = src/main.o src/util.o src/vetor.o src/livro.o src/arquivo.o
 EXEC = lms
 
 all: $(EXEC) clean
@@ -9,7 +9,7 @@ all: $(EXEC) clean
 $(EXEC): $(OBJS)
 	$(CC) $(OBJS) -o $(EXEC)
 
-src/main.o: src/main.c include/util.h include/vetor.h include/livro.h
+src/main.o: src/main.c include/util.h include/vetor.h include/livro.h include/arquivo.h
 	$(CC) $(CFLAGS) -c src/main.c -o src/main.o
 
 src/util.o: src/util.c include/util.h
@@ -20,6 +20,9 @@ src/vetor.o: src/vetor.c include/vetor.h include/livro.h
 
 src/livro.o: src/livro.c include/livro.h
 	$(CC) $(CFLAGS) -c src/livro.c -o src/livro.o
+
+src/arquivo.o: src/arquivo.c include/arquivo.h
+	$(CC) $(CFLAGS) -c src/arquivo.c -o src/arquivo.o
 
 .PHONY: all clean
 clean:

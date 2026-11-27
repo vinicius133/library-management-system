@@ -9,6 +9,7 @@
 #include "util.h"
 #include "vetor.h"
 #include "livro.h"
+#include "arquivo.h"
 
 int main(){
     #ifdef _WIN32
@@ -31,34 +32,32 @@ int main(){
     VetorLivros biblioteca;
     inicializar(&biblioteca, 10);       //inicialização do vetor de livros
 
-    title = fopen("data/title.txt", "r");
-    if (title == NULL){
-        printf("Aviso: Não foi possível carregar title.txt (%s)\n", strerror(errno));
-    } else{                             //abertura e checagem do arquivo de título
-        while ((ch = fgetc(title)) != EOF ){
-                printf("%c", ch);
-            }                           //printa o título do programa presente no title.txt
-        fclose(title);
-    }
-
+    
     // 1. Login
     // 2. Inicialização do vetor (malloc)
     // 3. Carregamento automático do arquivo inicial
-
+    
     do{
-        printf("\n╔══════════════════════════════════════════════╗\n");
-        printf("║           SISTEMA DE BIBLIOTECA (LMS)        ║\n");
-        printf("╠══════════════════════════════════════════════╣\n");
-        printf("║  [1] Cadastrar livro                         ║\n");
-        printf("║  [2] Listar todos os livros                  ║\n");
-        printf("║  [3] Buscar livros                           ║\n");
-        printf("║  [4] Remover livro por ID                    ║\n");
-        printf("║  [5] Salvar em arquivo texto                 ║\n");
-        printf("║  [6] Salvar em arquivo binário               ║\n");
-        printf("║  [7] Carregar dados de arquivos ao iniciar   ║\n");
-        printf("║  [8] Gerar relatórios                        ║\n");
-        printf("║  [9] Sair                                    ║\n");
-        printf("╠══════════════════════════════════════════════╣\n");
+        limpar_tela();
+        title = fopen("data/title.txt", "r");
+        if (title == NULL){
+            printf("Aviso: Não foi possível carregar title.txt (%s)\n", strerror(errno));
+        } else{                             //abertura e checagem do arquivo de título
+            while ((ch = fgetc(title)) != EOF ){
+                    printf("%c", ch);
+                }                           //printa o título do programa presente no title.txt
+            fclose(title);
+        }
+
+        printf("\n╔══════════════════════════════════════════════════════════════════════╗\n");
+        printf("║                       SISTEMA DE BIBLIOTECA (LMS)                    ║\n");
+        printf("╠══════════════════════════════════════════════════════════════════════╣\n");
+        printf("║  [1] Cadastrar livro              ║  [2] Listar todos os livros      ║\n");
+        printf("║  [3] Buscar livros                ║  [4] Remover livro por ID        ║\n");
+        printf("║  [5] Salvar em arquivo texto      ║  [6] Salvar em arquivo binário   ║\n");
+        printf("║  [7] Carregar dados ao iniciar    ║  [8] Gerar relatórios            ║\n");
+        printf("║  [9] Sair                         ║                                  ║\n");
+        printf("╚══════════════════════════════════════════════════════════════════════╝\n");
         printf("\nEscolha uma opção: \n");
 
         escolha = ler_inteiro();
@@ -66,7 +65,7 @@ int main(){
         switch (escolha){
             case 1:
                 // Cadastrar livro
-
+                limpar_tela();
                 int id_cadastro = 0, ano = 0;
                 char titulo[100], autor[100], categoria[50];    //informações necessárias do struct dos livros
 
@@ -92,17 +91,19 @@ int main(){
                     printf("\nLivro cadastrado com sucesso!\n");
                 }
                 
+                pausar_tela();
                 break;
 
             case 2:
                 // Listar livros
-
+                limpar_tela();
                 int escolha_ordenar = 0;
                 printf("1) Ordenar por título\n2) Ordenar por ano\n");
                 escolha_ordenar = ler_inteiro();
 
                 if (escolha_ordenar != 1 && escolha_ordenar != 2) {
                     printf("Opção inválida! Retornando ao menu.\n");
+                    limpar_tela();
                     break;
                 }
 
@@ -116,10 +117,12 @@ int main(){
                     }
                 }
 
+                pausar_tela();
                 break;
 
             case 3:
                 // Buscar livros
+                limpar_tela();
                 int escolha_buscar = 0;
                 char termo[100];
                 printf("1) Buscar por título (substring)\n2) Buscar por autor\n3) Buscar por categoria\n");
@@ -146,10 +149,12 @@ int main(){
                     printf("Opção inválida! Retornando ao menu.\n");
                 }
 
+                pausar_tela();
                 break;
 
             case 4:
                 // Remover livro
+                limpar_tela();
                 int id_remover = 0;
                 printf("Digite o ID do livro que será removido: ");
                 id_remover = ler_inteiro();
@@ -158,58 +163,78 @@ int main(){
                     printf("\nLivro removido com sucesso!\n");
                 }
 
+                pausar_tela();
                 break;
 
             case 5:
                 // Salvar em texto
+                limpar_tela();
 
+                if(salvar_texto(&biblioteca) == 1){
+                    printf("Arquivo de texto salvo com sucesso!\n");
+                } else{
+                    printf("Não foi possível salvar no arquivo.\n");
+                };
+
+                pausar_tela();
                 break;
 
             case 6:
                 // Salvar em binario
+                limpar_tela();
+
+                pausar_tela();
                 break;
 
             case 7:
                 // Carregar dados
+                limpar_tela();
+
+                pausar_tela();
                 break;
 
             case 8:
                 // Relatorios
-
+                limpar_tela();
                 gerar_relatorios(&biblioteca);
 
+                pausar_tela();
                 break;
 
             case 9:
+                limpar_tela();  
                 printf("\nDeseja salvar antes de encerrar?\n1 - Sim\n2 - Não\n");
                 escolha = ler_inteiro();
 
-                if (escolha == '1'){
+                if (escolha == 1){
                     printf("\n1 - Salvar dados em arquivo texto\n2 - Salvar dados em arquivo binário\n");
                     escolha = ler_inteiro();
 
-                    if (escolha == '1') {
+                    if (escolha == 1) {
                         //função
                         printf("Salvando em arquivo de texto\n");
                         executando = 0;
 
-                    } else if (escolha == '2') {
+                    } else if (escolha == 2) {
                         //função
                         printf("Salvando em arquivo binário\n");
                         executando = 0;
                     } else {
                         printf("Opção inválida! Retornando ao menu.\n");
+                        pausar_tela();
                     }
 
-                } else if(escolha == '2'){
+                } else if(escolha == 2){
                     executando = 0;
                 } else {
                     printf("Opção inválida! Retornando ao menu.\n");
+                    pausar_tela();
                 }
                 break;
 
             default:
                 printf("Opção inválida! Tente novamente.\n");
+                pausar_tela();
                 break;
         }
     } while (executando != 0);
