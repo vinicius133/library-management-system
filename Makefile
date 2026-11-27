@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Iinclude
 OBJS = src/main.o src/util.o src/vetor.o src/livro.o src/arquivo.o
 EXEC = lms
 
-all: $(EXEC) clean
+all: $(EXEC) 
 
 $(EXEC): $(OBJS)
 	$(CC) $(OBJS) -o $(EXEC)

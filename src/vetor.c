@@ -23,8 +23,8 @@ void inicializar(VetorLivros *v, int capacidade_inicial) {
 void liberar(VetorLivros *v) {
     free(v->livros);    // Devolve a memória para o sistema operacional
     v->livros = NULL;   // Remove o endereço para não tentar acessar memória liberada
-    v->tamanho = 0;     // Reseta a contagem
-    v->capacidade = 0;  // Reseta o limite
+    v->tamanho = 0;     
+    v->capacidade = 0;  
 }
 
 // Procura um livro pelo ID e fala onde ele está
@@ -89,7 +89,7 @@ int remover_livro(VetorLivros *v, int id) {
 
 
 
-// Função auxiliar (só existe aqui dentro) pra comparar texto ignorando maiúscula/minúscula
+// Função só pra comparar texto ignorando maiúscula/minúscula
 static int contem_texto(const char *texto, const char *busca) {
     char texto_min[100];
     char busca_min[100];
@@ -108,6 +108,7 @@ static int contem_texto(const char *texto, const char *busca) {
 
     // strstr procura se 'busca_min' aparece em qualquer pedaço de 'texto_min'
     return strstr(texto_min, busca_min) != NULL;
+    
 }
 
 // Lista todos os livros cadastrados no vetor
@@ -266,7 +267,7 @@ void gerar_relatorios(VetorLivros *v) {
     // 1. Quantidade total de livros
     printf("Total de livros cadastrados: %d\n", v->tamanho);
 
-    // 2. Livro mais antigo e mais recente (varredura linear)
+    // 2. Livro mais antigo e mais recente 
     int idx_antigo = 0;
     int idx_recente = 0;
 
@@ -282,7 +283,7 @@ void gerar_relatorios(VetorLivros *v) {
     printf("Livro mais antigo: \"%s\" (%d)\n", v->livros[idx_antigo].titulo, v->livros[idx_antigo].ano);
     printf("Livro mais recente: \"%s\" (%d)\n", v->livros[idx_recente].titulo, v->livros[idx_recente].ano);
 
-    // 3. Quantidade por categoria (contagem dinâmica sem repetir categoria)
+    // 3. Quantidade por categoria 
     printf("\nQuantidade por categoria:\n");
     int *contado = (int *)calloc(v->tamanho, sizeof(int)); // marca quais posições já foram contadas
     if (contado == NULL) {
