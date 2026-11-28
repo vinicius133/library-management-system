@@ -25,21 +25,19 @@ int main(){
         }
     #endif      //tentativa de aplicação de UTF-8 para windows e linux
 
-    FILE *title;
     int escolha;
     int ch, executando = 1;
-
+    
+    // 1. Login
+    
     VetorLivros biblioteca;
     inicializar(&biblioteca, 10);       //inicialização do vetor de livros
 
-    
-    // 1. Login
-    // 2. Inicialização do vetor (malloc)
-    // 3. Carregamento automático do arquivo inicial
+    carregar_texto(&biblioteca);
     
     do{
         limpar_tela();
-        title = fopen("data/title.txt", "r");
+        FILE *title = fopen("data/title.txt", "r");
         if (title == NULL){
             printf("Aviso: Não foi possível carregar title.txt (%s)\n", strerror(errno));
         } else{                             //abertura e checagem do arquivo de título
@@ -54,7 +52,7 @@ int main(){
         printf("╠═══════════════════════════════════════════════════════════════════════════╣\n");
         printf("║  [1] Cadastrar livro       [2] Listar livros        [3] Buscar livros     ║\n");
         printf("║  [4] Remover livro por ID  [5] Salvar em texto      [6] Salvar em binário ║\n");
-        printf("║  [7] Carregar dados        [8] Gerar relatórios     [9] Sair              ║\n");
+        printf("║  [7] Carregar de texto     [8] Gerar relatórios     [9] Sair              ║\n");
         printf("╚═══════════════════════════════════════════════════════════════════════════╝\n");
         printf("\nEscolha uma opção: ");
 
@@ -185,8 +183,16 @@ int main(){
                 break;
 
             case 7:
-                // Carregar dados
+                // Carregar de texto
                 limpar_tela();
+
+                liberar(&biblioteca);
+                inicializar(&biblioteca, 10);
+                if (carregar_texto(&biblioteca) == 1) {
+                    printf("Dados carregados. (total: %d livros)\n", biblioteca.tamanho);
+                } else {
+                    printf("Falha ao abrir o arquivo de dados.\n");
+                }
 
                 pausar_tela();
                 break;

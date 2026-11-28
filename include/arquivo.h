@@ -6,5 +6,6 @@
 #define BIN "data/livros.data"
 
 int salvar_texto(const VetorLivros *v);
+int carregar_texto(VetorLivros *v);
 
 #endif
