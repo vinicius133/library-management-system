@@ -59,9 +59,9 @@ int main(){
         printf("║                         SISTEMA DE BIBLIOTECA                             ║\n");
         printf("╠═══════════════════════════════════════════════════════════════════════════╣\n");
         printf("║  [1] Cadastrar livro       [4] Remover livro por ID [7] Carregar de texto ║\n");
-        printf("║  [2] Listar livros         [5] Salvar em texto      [8] Gerar relatórios  ║\n");
-        printf("║  [3] Buscar livros         [6] Salvar em binário    [9] Sair              ║\n");
-        printf("╚═══════════════════════════════════════════════════════════════════════════╝\n");
+        printf("║  [2] Listar livros         [5] Salvar em texto      [8] Carregar binário  ║\n");
+        printf("║  [3] Buscar livros         [6] Salvar em binário    [9] Gerar relatório   ║\n");
+        printf("╚═══════════════════════════════╡ [0] Sair ╞════════════════════════════════╝\n");
         printf("\nEscolha uma opção: ");
 
         escolha = ler_inteiro();
@@ -214,7 +214,7 @@ int main(){
                 pausar_tela();
                 break;
             
-            case 8:
+            case 9:
                 // Relatorios
                 limpar_tela();
                 gerar_relatorios(&biblioteca);
@@ -222,7 +222,7 @@ int main(){
                 pausar_tela();
                 break;
 
-            case 9:
+            case 0:
                 limpar_tela();  
                 printf("\nDeseja salvar antes de encerrar?\n1 - Sim\n2 - Não\n");
                 escolha = ler_inteiro();
