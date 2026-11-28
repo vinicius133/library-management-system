@@ -1,11 +1,14 @@
+// includes de sistema
 #include <stdio.h>
 #include <string.h>
-#include <errno.h>
+#include <errno.h>      //sendo usado para especificação de erro na abertura do arquivo de título
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN // evita headers pesados e conflitos de macros
-    #include <windows.h>
+    #include <windows.h>        //sendo usado para setar utf8 no terminal windows
 #endif
-#include <locale.h>
+#include <locale.h>             //sendo usado para setar utf8
+
+//includes locais
 #include "util.h"
 #include "vetor.h"
 #include "livro.h"
@@ -24,41 +27,42 @@ int main(){
             printf("Erro ao configurar UTF-8.\n");
         }
     #endif      //tentativa de aplicação de UTF-8 para windows e linux
-
-    FILE *title;
-    int escolha;
-    int ch, executando = 1;
-
-    VetorLivros biblioteca;
-    inicializar(&biblioteca, 10);       //inicialização do vetor de livros
-
     
-    // 1. Login
-    // 2. Inicialização do vetor (malloc)
-    // 3. Carregamento automático do arquivo inicial
+
+
+
+
+    // 1. Login    /////////////////////////////////////////////////////////////////////////////////////////////
     
+
+
+
+
+    VetorLivros biblioteca;             //reservando a biblioteca na memória
+    inicializar(&biblioteca, 10);       //aloca o espaço inicial da biblioteca para 10 livros
+    carregar_texto(&biblioteca);           //carrega dados do arquivo de texto ao iniciar
+    
+    int escolha, ch, executando = 1;
     do{
         limpar_tela();
-        title = fopen("data/title.txt", "r");
-        if (title == NULL){
-            printf("Aviso: Não foi possível carregar title.txt (%s)\n", strerror(errno));
-        } else{                             //abertura e checagem do arquivo de título
-            while ((ch = fgetc(title)) != EOF ){
+        FILE *title = fopen("data/title.txt", "r");             //tenta abrir o arquivo de título no modo leitura
+        if (title == NULL){ 
+            printf("Aviso: Não foi possível carregar title.txt (%s)\n", strerror(errno));           //se não conseguir abrir dá esse aviso e detalha o erro com strerror
+        } else{
+            while ((ch = fgetc(title)) != EOF ){            //printa o título do programa presente no title.txt um caractere por vez até chegar no EOF
                     printf("%c", ch);
-                }                           //printa o título do programa presente no title.txt
+                }
             fclose(title);
         }
 
-        printf("\n╔══════════════════════════════════════════════════════════════════════╗\n");
-        printf("║                       SISTEMA DE BIBLIOTECA (LMS)                    ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════════╣\n");
-        printf("║  [1] Cadastrar livro              ║  [2] Listar todos os livros      ║\n");
-        printf("║  [3] Buscar livros                ║  [4] Remover livro por ID        ║\n");
-        printf("║  [5] Salvar em arquivo texto      ║  [6] Salvar em arquivo binário   ║\n");
-        printf("║  [7] Carregar dados ao iniciar    ║  [8] Gerar relatórios            ║\n");
-        printf("║  [9] Sair                         ║                                  ║\n");
-        printf("╚══════════════════════════════════════════════════════════════════════╝\n");
-        printf("\nEscolha uma opção: \n");
+        printf("\n╔═════                                                                 ═════╗\n");
+        printf("║                         SISTEMA DE BIBLIOTECA                             ║\n");
+        printf("╠═══════════════════════════════════════════════════════════════════════════╣\n");
+        printf("║  [1] Cadastrar livro       [4] Remover livro por ID [7] Carregar de texto ║\n");
+        printf("║  [2] Listar livros         [5] Salvar em texto      [8] Carregar binário  ║\n");
+        printf("║  [3] Buscar livros         [6] Salvar em binário    [9] Gerar relatório   ║\n");
+        printf("╚═══════════════════════════════╡ [0] Sair ╞════════════════════════════════╝\n");
+        printf("\nEscolha uma opção: ");
 
         escolha = ler_inteiro();
 
@@ -187,13 +191,30 @@ int main(){
                 break;
 
             case 7:
-                // Carregar dados
+                // Carregar de texto
                 limpar_tela();
+
+                liberar(&biblioteca);
+                inicializar(&biblioteca, 10);
+                if (carregar_texto(&biblioteca) == 1) {
+                    printf("Dados carregados. (total: %d livros)\n", biblioteca.tamanho);
+                } else {
+                    printf("Falha ao abrir o arquivo de dados.\n");
+                }
 
                 pausar_tela();
                 break;
 
             case 8:
+                // carregar de binário
+                limpar_tela();
+
+                
+
+                pausar_tela();
+                break;
+            
+            case 9:
                 // Relatorios
                 limpar_tela();
                 gerar_relatorios(&biblioteca);
@@ -201,18 +222,22 @@ int main(){
                 pausar_tela();
                 break;
 
-            case 9:
+            case 0:
                 limpar_tela();  
                 printf("\nDeseja salvar antes de encerrar?\n1 - Sim\n2 - Não\n");
                 escolha = ler_inteiro();
 
                 if (escolha == 1){
-                    printf("\n1 - Salvar dados em arquivo texto\n2 - Salvar dados em arquivo binário\n");
+                    printf("\n1 - Salvar dados em arquivo de texto\n2 - Salvar dados em arquivo binário\n");
                     escolha = ler_inteiro();
 
                     if (escolha == 1) {
-                        //função
-                        printf("Salvando em arquivo de texto\n");
+                        if(salvar_texto(&biblioteca) == 1){
+                            printf("Arquivo de texto salvo com sucesso!\n");
+                        } else{
+                            printf("Não foi possível salvar no arquivo.\n");
+                        };
+                        
                         executando = 0;
 
                     } else if (escolha == 2) {

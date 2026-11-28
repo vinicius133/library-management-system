@@ -1,2 +1,15 @@
-1;1;1;1;1
-3;4;4;4;f
+2;1984;George Orwell;1949;Ficção Distópica
+10;A Revolução dos Bichos;George Orwell;1945;Sátira Política
+5;Cem Anos de Solidão;Gabriel García Márquez;1967;Realismo Mágico
+1;Crime e Castigo;Fiódor Dostoiévski;1866;Romance Psicológico
+3;Dom Casmurro;Machado de Assis;1899;Romance Realista
+4;Duna;Frank Herbert;1965;Ficção Científica
+9;Frankenstein;Mary Shelley;1818;Terror Gótico
+777;O Conde de Monte Cristo;Alexandre Dumas;1846;Aventura
+0;O Hobbit;J. R. R. Tolkien;1937;Fantasia
+8;O Nome do Vento;Patrick Rothfuss;2007;Fantasia
+6;O Pequeno Príncipe;Antoine de Saint-Exupéry;1943;Fábula
+11;O Senhor dos Anéis: A Sociedade do Anel;J. R. R. Tolkien;1954;Fantasia
+7;Orgulho e Preconceito;Jane Austen;1813;Romance
+51;Top 10 Piadas;Seu Zé;2002;Comédia
+
