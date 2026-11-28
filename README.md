@@ -1,4 +1,3 @@
-```markdown
 # 📚 Library Management System (LMS)
 
 <p align="left">
