@@ -28,23 +28,6 @@
 
 ---
 
-## 🧠 Under the Hood (How It Works)
-
-Instead of relying on fixed-size global arrays, the system organizes memory and data flow across four decoupled layers:
-
-```text
-┌───────────────────┐     ┌───────────────────┐     ┌───────────────────┐
-│   livros.txt/data │ ──▶ │   arquivo.c       │ ──▶ │   VetorLivros    │
-│  (ID;Title;...)   │ ◀── │ (strtok / fprintf)│ ◀── │ (Dynamic Heap)   │
-└───────────────────┘     └───────────────────┘     └─────────┬─────────┘
-                                                              │
-                          ┌───────────────────┐               ▼
-                          │   util.c          │     ┌───────────────────┐
-                          │ (Safe I/O & Trim) │ ──▶ │   vetor.c         │
-                          └───────────────────┘     │ (MergeSort/Search)│
-                                                    └───────────────────┘
-```
-
 * **Smart Memory Growth (`vetor.c`)**: `VetorLivros` holds a pointer to a `livro` array, its active count (`tamanho`), and its allocated limit (`capacidade`). When `tamanho == capacidade`, `cadastrar_livro()` doubles the allocated block via `realloc`, avoiding frequent system calls.
 * **Divide-and-Conquer Sorting (`merge_sort_rec`)**: To sort books the array is recursively split into halves and merged back in order using temporary heap buffers (`E` and `D`), which are immediately freed afterward.
 * **Bulletproof Terminal Input (`util.c`)**: Standard `scanf` calls often leave stray `\n` characters in `stdin` or fail on invalid text. Every input passes through `limpar_buffer()` and `limpar_espacos()`, preventing infinite loops and messy formatting.
@@ -89,6 +72,7 @@ library-management-system/
 ### Using `Makefile` (Recommended)
 
 ```bash
+
 make
 
 ./bibliotecalms        # Linux / macOS
@@ -122,5 +106,3 @@ Developed collaboratively for **Computer Programming I**:
 
 * **Vinícius ([@vinicius133](https://github.com/vinicius133))** — Main menu loop & UTF-8 terminal setup (`main`), safe input/buffer utilities (`util`), text/binary file persistence (`arquivo`), and build automation (`Makefile`).
 * **José ([@Devze2612](https://github.com/Devze2612))** — Book struct & formatting (`livro`), dynamic array memory management (`vetor`), recursive Merge Sort, substring search filters, and collection reports.
-
-```
