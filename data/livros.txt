@@ -12,8 +12,4 @@
 11;O Senhor dos Anéis: A Sociedade do Anel;J. R. R. Tolkien;1954;Fantasia
 7;Orgulho e Preconceito;Jane Austen;1813;Romance
 51;Top 10 Piadas;Seu Zé;2002;Comédia
-12;testecadastro;vini;2026;testarne
-13;upup;upup;2026;uyuy
-14;14;14;14;14
-98;98;98;98;98
-78;78;78;78;78
+

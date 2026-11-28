@@ -1,11 +1,14 @@
+// includes de sistema
 #include <stdio.h>
 #include <string.h>
-#include <errno.h>
+#include <errno.h>      //sendo usado para especificação de erro na abertura do arquivo de título
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN // evita headers pesados e conflitos de macros
-    #include <windows.h>
+    #include <windows.h>        //sendo usado para setar utf8 no terminal windows
 #endif
-#include <locale.h>
+#include <locale.h>             //sendo usado para setar utf8
+
+//includes locais
 #include "util.h"
 #include "vetor.h"
 #include "livro.h"
@@ -24,35 +27,40 @@ int main(){
             printf("Erro ao configurar UTF-8.\n");
         }
     #endif      //tentativa de aplicação de UTF-8 para windows e linux
+    
 
-    int escolha;
-    int ch, executando = 1;
-    
-    // 1. Login
-    
-    VetorLivros biblioteca;
-    inicializar(&biblioteca, 10);       //inicialização do vetor de livros
 
-    carregar_texto(&biblioteca);
+
+
+    // 1. Login    /////////////////////////////////////////////////////////////////////////////////////////////
     
+
+
+
+
+    VetorLivros biblioteca;             //reservando a biblioteca na memória
+    inicializar(&biblioteca, 10);       //aloca o espaço inicial da biblioteca para 10 livros
+    carregar_texto(&biblioteca);           //carrega dados do arquivo de texto ao iniciar
+    
+    int escolha, ch, executando = 1;
     do{
         limpar_tela();
-        FILE *title = fopen("data/title.txt", "r");
-        if (title == NULL){
-            printf("Aviso: Não foi possível carregar title.txt (%s)\n", strerror(errno));
-        } else{                             //abertura e checagem do arquivo de título
-            while ((ch = fgetc(title)) != EOF ){
+        FILE *title = fopen("data/title.txt", "r");             //tenta abrir o arquivo de título no modo leitura
+        if (title == NULL){ 
+            printf("Aviso: Não foi possível carregar title.txt (%s)\n", strerror(errno));           //se não conseguir abrir dá esse aviso e detalha o erro com strerror
+        } else{
+            while ((ch = fgetc(title)) != EOF ){            //printa o título do programa presente no title.txt um caractere por vez até chegar no EOF
                     printf("%c", ch);
-                }                           //printa o título do programa presente no title.txt
+                }
             fclose(title);
         }
 
         printf("\n╔═════                                                                 ═════╗\n");
         printf("║                         SISTEMA DE BIBLIOTECA                             ║\n");
         printf("╠═══════════════════════════════════════════════════════════════════════════╣\n");
-        printf("║  [1] Cadastrar livro       [2] Listar livros        [3] Buscar livros     ║\n");
-        printf("║  [4] Remover livro por ID  [5] Salvar em texto      [6] Salvar em binário ║\n");
-        printf("║  [7] Carregar de texto     [8] Gerar relatórios     [9] Sair              ║\n");
+        printf("║  [1] Cadastrar livro       [4] Remover livro por ID [7] Carregar de texto ║\n");
+        printf("║  [2] Listar livros         [5] Salvar em texto      [8] Gerar relatórios  ║\n");
+        printf("║  [3] Buscar livros         [6] Salvar em binário    [9] Sair              ║\n");
         printf("╚═══════════════════════════════════════════════════════════════════════════╝\n");
         printf("\nEscolha uma opção: ");
 
@@ -197,6 +205,15 @@ int main(){
                 pausar_tela();
                 break;
 
+            case 8:
+                // carregar de binário
+                limpar_tela();
+
+                
+
+                pausar_tela();
+                break;
+            
             case 8:
                 // Relatorios
                 limpar_tela();
